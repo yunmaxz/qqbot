@@ -23,7 +23,7 @@
           <span>群组管理</span>
         </el-menu-item>
         <el-menu-item index="/plugins">
-          <span>插件管理</span>
+          <span>功能管理</span>
         </el-menu-item>
         <el-menu-item index="/keywords">
           <span>关键词回复</span>

@@ -1,10 +1,10 @@
 <!-- QQ Bot Manager - Copyright (c) 2025 云码小栈 <https://yunmaxz.com> | MIT 非商业许可证 -->
 <template>
   <div>
-    <h2 style="margin-bottom: 20px">插件管理</h2>
+    <h2 style="margin-bottom: 20px">功能管理</h2>
     
     <el-table :data="plugins" stripe>
-      <el-table-column prop="pluginName" label="插件名称" width="150" />
+      <el-table-column prop="pluginName" label="功能名称" width="150" />
       <el-table-column prop="pluginDesc" label="描述" />
       <el-table-column label="状态" width="100">
         <template #default="{ row }">
@@ -119,7 +119,7 @@ const fetchPlugins = async () => {
       plugins.value = response.data.data.plugins
     }
   } catch (error) {
-    ElMessage.error('获取插件列表失败')
+    ElMessage.error('获取功能列表失败')
   } finally {
     isLoading.value = false
   }
@@ -209,7 +209,7 @@ const saveConfig = async () => {
 
 const deletePlugin = async (plugin) => {
   try {
-    await ElMessageBox.confirm(`确定删除插件 "${plugin.pluginName}" 吗？`, '提示', { type: 'warning' })
+    await ElMessageBox.confirm(`确定删除功能 "${plugin.pluginName}" 吗？`, '提示', { type: 'warning' })
     await axios.delete(`/api/bot/plugin/${plugin.pluginName}`)
     ElMessage.success('删除成功')
     fetchPlugins()

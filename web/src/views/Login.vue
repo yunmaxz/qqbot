@@ -12,7 +12,7 @@
           <el-icon size="48" color="#409EFF"><ChatDotRound /></el-icon>
         </div>
         <h2>QQ机器人管理后台</h2>
-        <p class="subtitle">智能群管 · AI对话 · 多功能插件</p>
+        <p class="subtitle">智能群管 · AI对话 · 多功能管理</p>
       </div>
       <el-form :model="form" @submit.prevent="handleLogin" class="login-form">
         <el-form-item>

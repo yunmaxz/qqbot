@@ -108,7 +108,7 @@
     </el-dialog>
 
     <el-dialog v-model="showMenuDialog" title="菜单管理" width="700px">
-      <el-alert title="勾选的插件将在 /菜单 指令中显示" type="info" :closable="false" style="margin-bottom: 15px" />
+      <el-alert title="勾选的功能将在 /菜单 指令中显示" type="info" :closable="false" style="margin-bottom: 15px" />
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
         <el-checkbox
           v-for="item in menuList"
