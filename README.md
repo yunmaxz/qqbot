@@ -88,18 +88,39 @@
 
 ## 环境要求
 
-- Node.js >= 18
-- MySQL >= 5.7
-- OneBot 协议端（推荐 [LLOneBot](https://llonebot.github.io) 或 [NapCat](https://napneko.github.io)）
+| 依赖 | 版本要求 |
+|------|---------|
+| Node.js | >= 18（推荐 22.x LTS） |
+| MySQL | >= 8.0 |
+| OneBot 协议端 | LLOneBot 或 NapCat |
 
 > **语音功能说明**：TTS 使用 Microsoft Edge TTS，无需额外安装。语音发送依赖 OneBot 协议端的音频格式转换能力，LLOneBot 和 NapCat 均内置 ffmpeg，开箱即用。
+
+## 环境安装
+
+### Node.js
+
+推荐安装 **v22.17.0 LTS** 版本。
+
+**Windows：**
+
+前往以下地址下载安装包，一路 Next 安装即可：
+
+[https://nodejs.org/dist/v22.17.0/node-v22.17.0-x64.msi](https://nodejs.org/dist/v22.17.0/node-v22.17.0-x64.msi)
+
+
+**验证安装：**
+```bash
+node -v   # 应输出 v22.x.x
+npm -v
+```
 
 ## 快速开始
 
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/your-username/qqbot.git
+git clone https://github.com/yunmaxz/qqbot.git
 cd qqbot
 ```
 
@@ -108,12 +129,6 @@ cd qqbot
 ```bash
 # 一键安装前后端所有依赖
 npm run install:all
-# 前端依赖安装
-cd web
-npm install
-# 后端端依赖安装
-根目录下
-npm install
 ```
 
 ### 3. 配置环境变量
@@ -150,7 +165,7 @@ mysql -u root -p qqbot < database/group_management.sql
 ### 5. 构建前端
 
 ```bash
-npm run client:build
+npm run build
 ```
 
 ### 6. 启动服务
@@ -166,7 +181,7 @@ npm run dev
 启动后访问 `http://localhost:3000`，默认账号：
 
 - 用户名：`admin`
-- 密码：`admin123`
+- 密码：`123456`
 
 > **请在首次登录后立即修改默认密码**
 
