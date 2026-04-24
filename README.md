@@ -189,7 +189,39 @@ npm run dev
 
 登录后台 → **机器人配置** → 填写 OneBot WebSocket 地址（如 `ws://127.0.0.1:3001`）和 Token（无则留空）→ 保存后自动重连。
 
-### 8. 配置语音人设（可选）
+### 8. LLOneBot 在 Linux（无 GUI）下运行
+
+以 `llbot` 目录为例，先进入目录：
+
+```bash
+cd /www/wwwroot/qqbot/llbot
+```
+
+首次启动（用于登录 QQ）：
+
+```bash
+./start.sh
+```
+
+登录成功后，使用后台方式运行：
+
+```bash
+nohup ./start.sh > llbot.log 2>&1 &
+```
+
+查看日志并获取扫码信息：
+
+```bash
+tail -f llbot.log
+```
+
+停止 llbot：
+
+```bash
+pkill -f "./start.sh"
+```
+
+### 9. 配置语音人设（可选）
 
 登录后台 → **AI 人设管理** → 编辑人设 → 开启「语音设置」：
 
