@@ -518,14 +518,17 @@ class OneBotClient {
 
             case '菜单':
                 if (message_type === 'group') {
+                    const numericGroupId = parseInt(group_id, 10);
+                    console.log(`[菜单] 查询群 ${numericGroupId} 的菜单`);
                     const menuItems = await GroupPluginMenu.findAll({
-                        where: { groupId: group_id, enabled: 1 },
+                        where: { groupId: numericGroupId, enabled: 1 },
                         include: [{
                             model: PluginConfig,
                             as: 'PluginConfig',
                             attributes: ['pluginName', 'pluginDesc', 'configJson']
                         }]
                     });
+                    console.log(`[菜单] 查询结果: ${menuItems.length} 条`);
 
                     if (menuItems.length > 0) {
                         const col1 = [];

@@ -180,26 +180,21 @@ class GroupController {
     async getMenu(req, res) {
         try {
             const { groupId } = req.params;
+            const gid = parseInt(groupId, 10);
             const plugins = await PluginConfig.findAll({
-                where: { enabled: 1 },
                 order: [['id', 'ASC']]
             });
             const menuItems = await GroupPluginMenu.findAll({
-                where: { groupId },
-                include: [{
-                    model: PluginConfig,
-                    as: 'PluginConfig',
-                    attributes: ['pluginName', 'pluginDesc']
-                }]
+                where: { groupId: gid }
             });
             const menuMap = {};
             menuItems.forEach(item => {
-                menuMap[item.pluginName] = item.enabled;
+                menuMap[item.pluginName] = item.enabled === 1 || item.enabled === '1' ? 1 : 0;
             });
             const result = plugins.map(plugin => ({
                 pluginName: plugin.pluginName,
                 pluginDesc: plugin.pluginDesc,
-                enabled: menuMap[plugin.pluginName] ? 1 : 0
+                enabled: menuMap[plugin.pluginName] === 1 ? 1 : 0
             }));
             res.json({
                 code: 200,
@@ -217,21 +212,20 @@ class GroupController {
     async saveMenu(req, res) {
         try {
             const { groupId } = req.params;
+            const gid = parseInt(groupId, 10);
+            if (isNaN(gid)) {
+                return res.status(400).json({ code: 400, message: '无效的群号' });
+            }
             const { menus } = req.body;
+            if (!Array.isArray(menus) || menus.length === 0) {
+                return res.json({ code: 200, message: '保存成功（无菜单项）' });
+            }
             for (const item of menus) {
-                const existing = await GroupPluginMenu.findOne({
-                    where: { groupId, pluginName: item.pluginName }
+                await GroupPluginMenu.upsert({
+                    groupId: gid,
+                    pluginName: item.pluginName,
+                    enabled: item.enabled ? 1 : 0
                 });
-                if (existing) {
-                    existing.enabled = item.enabled ? 1 : 0;
-                    await existing.save();
-                } else {
-                    await GroupPluginMenu.create({
-                        groupId,
-                        pluginName: item.pluginName,
-                        enabled: item.enabled ? 1 : 0
-                    });
-                }
             }
             res.json({
                 code: 200,
